@@ -84,7 +84,9 @@ const GameScreen = ({ gameState, onMove, onLeaveGame }) => {
               isOldest={isOldestPiece(index)}
               isDisabled={!canPlaySquare(index)}
               onClick={onMove}
-            />
+            >
+              {square}
+            </Square>
           ))}
         </section>
 
