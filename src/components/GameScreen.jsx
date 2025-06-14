@@ -1,10 +1,8 @@
-// components/GameScreen.jsx
 import Square from './Square'
 
 const GameScreen = ({ gameState, onMove, onLeaveGame }) => {
   const { game, players, playerName } = gameState
-  
-  // Validación simple
+
   if (!game) {
     return (
       <div className="game-screen">
@@ -12,7 +10,7 @@ const GameScreen = ({ gameState, onMove, onLeaveGame }) => {
       </div>
     )
   }
-  
+
   if (!players) {
     return (
       <div className="game-screen">
@@ -20,7 +18,7 @@ const GameScreen = ({ gameState, onMove, onLeaveGame }) => {
       </div>
     )
   }
-  
+
   if (!game.board) {
     return (
       <div className="game-screen">
@@ -28,19 +26,18 @@ const GameScreen = ({ gameState, onMove, onLeaveGame }) => {
       </div>
     )
   }
-  
-  // Extraer datos - simple como tu código original
+
   const { board, currentTurn, winner, movesHistory } = game
-  
+
   const playersArray = Object.values(players)
   const myPlayer = playersArray.find(p => p.name === playerName)
   const opponent = playersArray.find(p => p.name !== playerName)
   const isMyTurn = myPlayer && currentTurn === myPlayer.symbol
 
   const isOldestPiece = (index) => {
-    if (!board[index] || board[index] !== myPlayer?.symbol) return false
-    const myMoves = movesHistory?.[myPlayer.symbol] || []
-    return myMoves.length >= 3 && myMoves[0] === index
+    const oldestX = movesHistory?.X?.[0]
+    const oldestO = movesHistory?.O?.[0]
+    return index === oldestX || index === oldestO
   }
 
   const canPlaySquare = (index) => {
@@ -76,36 +73,36 @@ const GameScreen = ({ gameState, onMove, onLeaveGame }) => {
       </div>
 
       <section className='game'>
-          {board.map((square, index) => (
-            <Square
-              key={index}
-              index={index}
-              value={square}
-              isOldest={isOldestPiece(index)}
-              isDisabled={!canPlaySquare(index)}
-              onClick={onMove}
-            >
-              {square}
-            </Square>
-          ))}
-        </section>
+        {board.map((square, index) => (
+          <Square
+            key={index}
+            index={index}
+            value={square}
+            isOldest={isOldestPiece(index)}
+            isDisabled={!canPlaySquare(index)}
+            onClick={onMove}
+          >
+            {square}
+          </Square>
+        ))}
+      </section>
 
       {(winner === 'X' || winner === 'O' || winner === false) && (
         <div className='winner'>
           <div className='text'>
             <h2>
-              {winner === false 
-                ? 'Empate' 
-                : winner === myPlayer?.symbol 
-                  ? '¡Ganaste!' 
+              {winner === false
+                ? 'Empate'
+                : winner === myPlayer?.symbol
+                  ? '¡Ganaste!'
                   : `Ganó ${opponent?.name}`
               }
             </h2>
-             {winner && winner !== false && (
-                <div className='win'>
-                  <Square value={winner} />
-                </div>
-              )}
+            {winner && winner !== false && (
+              <div className='win'>
+                <Square value={winner} />
+              </div>
+            )}
             <div className="winner-actions">
               <button onClick={onLeaveGame}>Salir</button>
             </div>
