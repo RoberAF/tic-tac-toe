@@ -130,12 +130,12 @@ body {
   box-shadow: 0 0 10px #fff, inset 0 0 10px #fff;
 }
 
-.square.x {
+.square.x .symbol {
   color: rgb(0, 89, 255);
   text-shadow: 0 0 5px #0ff, 0 0 10px rgb(0, 89, 255);
 }
 
-.square.o {
+.square.o .symbol {
   color: #f44;
   text-shadow: 0 0 5px #f44, 0 0 10px #f44;
 }
@@ -153,7 +153,10 @@ body {
 
 .square.oldest {
   border-color: #ff4444;
-  animation: pulse-border 1.5s infinite, blink 1s step-start infinite;
+}
+
+.square.oldest .symbol {
+  animation: blink 1s steps(2, start) infinite;
 }
 
 @keyframes pulse-border {

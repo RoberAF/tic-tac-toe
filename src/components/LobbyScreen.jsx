@@ -5,21 +5,25 @@ const LobbyScreen = ({ onCreateRoom, onJoinRoom }) => {
   const [roomCode, setRoomCode] = useState('')
   const [isCreating, setIsCreating] = useState(true)
 
-  const handleSubmit = () => {
+  const handleCreateRoom = () => {
     if (!playerName.trim()) {
       alert('Por favor ingresa tu nombre')
       return
     }
 
-    if (isCreating) {
-      onCreateRoom(playerName.trim())
-    } else {
-      if (!roomCode.trim()) {
-        alert('Por favor ingresa el código de sala')
-        return
-      }
-      onJoinRoom(roomCode.trim().toUpperCase(), playerName.trim())
+    onCreateRoom(playerName.trim())
+  }
+
+  const handleJoinRoom = () => {
+    if (!playerName.trim()) {
+      alert('Por favor ingresa tu nombre')
+      return
     }
+    if (!roomCode.trim()) {
+      alert('Por favor ingresa el código de sala')
+      return
+    }
+    onJoinRoom(roomCode.trim().toUpperCase(), playerName.trim())
   }
 
   return (
@@ -38,15 +42,27 @@ const LobbyScreen = ({ onCreateRoom, onJoinRoom }) => {
       </div>
 
       <div className="game-mode-selector">
-        <button 
+        <button
           className={isCreating ? 'active' : ''}
-          onClick={() => setIsCreating(true)}
+          onClick={() => {
+            if (isCreating) {
+              handleCreateRoom()
+            } else {
+              setIsCreating(true)
+            }
+          }}
         >
           Crear Sala
         </button>
-        <button 
+        <button
           className={!isCreating ? 'active' : ''}
-          onClick={() => setIsCreating(false)}
+          onClick={() => {
+            if (!isCreating) {
+              handleJoinRoom()
+            } else {
+              setIsCreating(false)
+            }
+          }}
         >
           Unirse a Sala
         </button>
@@ -64,11 +80,7 @@ const LobbyScreen = ({ onCreateRoom, onJoinRoom }) => {
           />
         </div>
       )}
-
-      <button onClick={handleSubmit} disabled={!playerName.trim() || (!isCreating && !roomCode.trim())}>
-        {isCreating ? 'Crear Sala' : 'Unirse a Sala'}
-      </button>
-    </div>
+      </div>
   )
 }
 

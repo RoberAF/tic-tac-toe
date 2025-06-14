@@ -1,6 +1,6 @@
-const Square = ({ value, index, isOldest, isDisabled, onClick, isSelected }) => {
-  const valueClass = value === 'X' ? 'x' : value === 'O' ? 'o' : ''
-  const className = `square ${valueClass} ${isSelected ? 'is-selected' : ''} ${isOldest ? 'oldest' : ''} ${isDisabled ? 'disabled' : ''}`
+const Square = ({ value, index, isOldest, isDisabled, onClick, isSelected, children }) => {
+  const symbolClass = value === 'X' ? 'x' : value === 'O' ? 'o' : ''
+  const className = `square ${symbolClass} ${isSelected ? 'is-selected' : ''} ${isOldest ? 'oldest' : ''} ${isDisabled ? 'disabled' : ''}`
 
   const handleClick = () => {
     if (!isDisabled && onClick) {
@@ -10,7 +10,7 @@ const Square = ({ value, index, isOldest, isDisabled, onClick, isSelected }) => 
 
   return (
     <div onClick={handleClick} className={className}>
-      {value}
+      <span className="symbol">{children}</span>
     </div>
   )
 }
