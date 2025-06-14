@@ -127,6 +127,17 @@ body {
   place-items: center;
   cursor: pointer;
   font-size: 48px;
+  box-shadow: 0 0 10px #fff, inset 0 0 10px #fff;
+}
+
+.square.x {
+  color: rgb(0, 89, 255);
+  text-shadow: 0 0 5px #0ff, 0 0 10px rgb(0, 89, 255);
+}
+
+.square.o {
+  color: #f44;
+  text-shadow: 0 0 5px #f44, 0 0 10px #f44;
 }
 
 .game-info {
@@ -142,21 +153,35 @@ body {
 
 .square.oldest {
   border-color: #ff4444;
-  animation: pulse-border 1.5s infinite;
+  animation: pulse-border 1.5s infinite, blink 1s step-start infinite;
 }
 
 @keyframes pulse-border {
-  0% { 
+  0% {
     border-color: #ff4444;
     box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.4);
   }
-  50% { 
+
+  50% {
     border-color: #ff6666;
     box-shadow: 0 0 0 4px rgba(255, 68, 68, 0.2);
   }
-  100% { 
+
+  100% {
     border-color: #ff4444;
     box-shadow: 0 0 0 0 rgba(255, 68, 68, 0);
+  }
+}
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.3;
   }
 }
 

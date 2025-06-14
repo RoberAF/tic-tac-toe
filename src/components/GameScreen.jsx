@@ -76,18 +76,17 @@ const GameScreen = ({ gameState, onMove, onLeaveGame }) => {
       </div>
 
       <section className='game'>
-        {board.map((square, index) => (
-          <Square
-            key={index}
-            index={index}
-            isOldest={isOldestPiece(index)}
-            isDisabled={!canPlaySquare(index)}
-            onClick={onMove}
-          >
-            {square}
-          </Square>
-        ))}
-      </section>
+          {board.map((square, index) => (
+            <Square
+              key={index}
+              index={index}
+              value={square}
+              isOldest={isOldestPiece(index)}
+              isDisabled={!canPlaySquare(index)}
+              onClick={onMove}
+            />
+          ))}
+        </section>
 
       {(winner === 'X' || winner === 'O' || winner === false) && (
         <div className='winner'>
@@ -100,11 +99,11 @@ const GameScreen = ({ gameState, onMove, onLeaveGame }) => {
                   : `Ganó ${opponent?.name}`
               }
             </h2>
-            {winner && winner !== false && (
-              <div className='win'>
-                <Square>{winner}</Square>
-              </div>
-            )}
+             {winner && winner !== false && (
+                <div className='win'>
+                  <Square value={winner} />
+                </div>
+              )}
             <div className="winner-actions">
               <button onClick={onLeaveGame}>Salir</button>
             </div>
